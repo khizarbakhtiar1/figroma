@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -17,7 +17,7 @@ contract DocumentNFT is ERC721URIStorage, Ownable {
     // Event emitted on NFT minting
     event Minted(uint256 indexed tokenId, address indexed recipient, string tokenURI);
 
-    constructor(address identityContractAddress, address documentVerificationAddress) ERC721("DocumentNFT", "DNFT") {
+    constructor(address identityContractAddress, address documentVerificationAddress) ERC721("DocumentNFT", "DNFT") Ownable(msg.sender) {
         identityAuthorization = IdentityAuthorization(identityContractAddress);
         documentVerification = DocumentVerification(documentVerificationAddress);
     }
@@ -47,7 +47,7 @@ contract DocumentNFT is ERC721URIStorage, Ownable {
     }
 
     // Override for handling conflicts in multiple inheritance
-    function _burn(uint256 tokenId) internal override {
+    function burn(uint256 tokenId) internal {
         super._burn(tokenId);
     }
 
@@ -58,8 +58,8 @@ contract DocumentNFT is ERC721URIStorage, Ownable {
 
     // Internal function to check approval or ownership
     function _isApprovedOrOwner(address spender, uint256 tokenId) internal view returns (bool) {
-       require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         address owner = ownerOf(tokenId);
+        require (owner != address(0), "");
         return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender));
     }
 }
