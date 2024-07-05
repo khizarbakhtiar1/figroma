@@ -1,13 +1,8 @@
-# Sample Hardhat Project
+# IdentityAuthorization Contract
+The IdentityAuthorization contract manages user identities and roles within the Figroma DApp. It allows users to register and assigns roles such as admin and higher authority. Admins have the ability to authorize higher authorities and update user roles. Users can be registered, checked for registration, and assigned roles, ensuring that only authorized individuals can perform specific actions within the DApp.
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+# DocumentVerification Contract
+The DocumentVerification contract handles the submission and verification of documents. It works in conjunction with the IdentityAuthorization contract to ensure only registered users can submit documents and only higher authorities can verify them. Each document is assigned a unique ID, and its details, including the owner's address and verification status, are stored and can be retrieved. Verified documents can be referenced for further actions, such as NFT minting.
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
-```
+# NftContract
+The NftContract is an ERC721 implementation that mints NFTs for verified documents. It interacts with the IdentityAuthorization and DocumentVerification contracts to ensure that only higher authorities can mint NFTs and that the documents being minted are verified. The contract allows the minting of NFTs with specific metadata and supports transferring NFTs to other wallets, ensuring the security and authenticity of the minted NFTs based on the verified documents.

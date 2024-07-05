@@ -73,7 +73,7 @@ contract IdentityAuthorization {
         
         users[_higherAuthority].isHigherAuthority = true;
         
-        emit UserRoleUpdated(_higherAuthority, users[_higherAuthority].isAdmin, true);
+        emit UserRoleUpdated(_higherAuthority, users[_higherAuthority].isAdmin,true);
     }
     
     // Function to update roles (admin or higher authority)
