@@ -59,7 +59,7 @@ contract Institute is ERC721, Ownable {
     }
 
     function revokeSoulBoundToken(uint256 _tokenId) external onlyOwner {
-        address owner = ownerOf(_tokenId);
+       
         bytes32 documentHash = tokenToDocument[_tokenId];
 
         _burn(_tokenId);
