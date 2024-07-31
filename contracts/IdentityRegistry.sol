@@ -11,14 +11,14 @@ contract IdentityRegistry is Ownable {
 
     struct HigherAuthority {
         address walletAddress;
-        string credentials;
+        string authorityName;
         uint8 approvalCount;
         bool isApproved;
         bool exists;
     }
 
     struct Institute {
-        string credentials;
+        string institudeName;
         address higherAuthority;
         bool isApproved;
         bool exists;
@@ -60,7 +60,7 @@ contract IdentityRegistry is Ownable {
 
     function addAdmin(address _newAdmin) external onlyOwner {
         require(!admins[_newAdmin].exists, "Admin already exists");
-        require(adminCount < MAX_ADMINS, "Maximum admin limit reached");
+        require(adminCount <= MAX_ADMINS, "Maximum admin limit reached");
 
         admins[_newAdmin] = Admin(true, true);
         adminCount++;
@@ -78,10 +78,10 @@ contract IdentityRegistry is Ownable {
         emit AdminRemoved(_admin);
     }
 
-    function registerHigherAuthority(string memory _credentials) external {
+    function registerHigherAuthority(string memory _authorityName) external {
         require(!higherAuthorities[msg.sender].exists, "Higher authority already registered");
 
-        higherAuthorities[msg.sender] = HigherAuthority(msg.sender, _credentials, 0, false, true);
+        higherAuthorities[msg.sender] = HigherAuthority(msg.sender, _authorityName, 0, false, true);
 
         emit HigherAuthorityRegistered(msg.sender);
     }
@@ -100,11 +100,11 @@ contract IdentityRegistry is Ownable {
         }
     }
 
-    function registerInstitute(string memory _credentials, address _higherAuthority) external {
+    function registerInstitute(string memory _instituteName, address _higherAuthority) external {
         require(!institutes[msg.sender].exists, "Institute already registered");
         require(higherAuthorities[_higherAuthority].isApproved, "Invalid or unapproved higher authority");
 
-        institutes[msg.sender] = Institute(_credentials, _higherAuthority, false, true);
+        institutes[msg.sender] = Institute(_instituteName, _higherAuthority, false, true);
 
         emit InstituteRegistered(msg.sender, _higherAuthority);
     }
