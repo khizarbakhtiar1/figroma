@@ -26,7 +26,7 @@ export function Register() {
   return (
     <Card className="mx-auto max-w-md">
       <CardHeader>
-        <CardTitle>Document Verification</CardTitle>
+        <CardTitle>Sign Up!</CardTitle>
         <CardDescription>
           Register as an Institute or Higher Authority
         </CardDescription>

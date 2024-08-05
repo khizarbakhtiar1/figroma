@@ -16,7 +16,7 @@ export function Header() {
   return (
     <header className="fixed top-0 z-50 w-full bg-white shadow-md dark:bg-gray-900">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        <Link href="#" className="flex items-center gap-2" prefetch={false}>
+        <Link href="/" className="flex items-center gap-2" prefetch={false}>
           <MountainIcon className="h-6 w-6 text-primary" />
           <span className="text-lg font-extrabold text-primary">Figroma</span>
         </Link>
@@ -25,20 +25,11 @@ export function Header() {
             <NavigationMenuList>
               <NavigationMenuLink asChild>
                 <Link
-                  href="#"
+                  href="/register"
                   className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus:outline-none dark:bg-gray-900 dark:text-white dark:hover:bg-primary dark:hover:text-primary-foreground dark:focus:bg-primary dark:focus:text-primary-foreground"
                   prefetch={false}
                 >
-                  Home
-                </Link>
-              </NavigationMenuLink>
-              <NavigationMenuLink asChild>
-                <Link
-                  href="#"
-                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus:outline-none dark:bg-gray-900 dark:text-white dark:hover:bg-primary dark:hover:text-primary-foreground dark:focus:bg-primary dark:focus:text-primary-foreground"
-                  prefetch={false}
-                >
-                  Features
+                  Sign Up
                 </Link>
               </NavigationMenuLink>
               <NavigationMenuLink asChild>
@@ -52,11 +43,20 @@ export function Header() {
               </NavigationMenuLink>
               <NavigationMenuLink asChild>
                 <Link
-                  href="#"
+                  href="/verify"
                   className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus:outline-none dark:bg-gray-900 dark:text-white dark:hover:bg-primary dark:hover:text-primary-foreground dark:focus:bg-primary dark:focus:text-primary-foreground"
                   prefetch={false}
                 >
-                  Contact
+                  Verify
+                </Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/about"
+                  className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus:outline-none dark:bg-gray-900 dark:text-white dark:hover:bg-primary dark:hover:text-primary-foreground dark:focus:bg-primary dark:focus:text-primary-foreground"
+                  prefetch={false}
+                >
+                  About Us
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuList>

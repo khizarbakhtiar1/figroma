@@ -1,4 +1,4 @@
-import { DocumentVerificationForm } from "@/components/DocumentVerficationForm";
+import { DocumentVerificationForm } from "./DocumentVerficationForm";
 
 const DocumentVerification = () => {
   return (

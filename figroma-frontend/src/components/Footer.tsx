@@ -9,9 +9,7 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-y-0 sm:gap-x-8">
           <div className="space-y-6">
-            <div className="text-lg font-medium text-gray-900">
-              Document Verification DApp
-            </div>
+            <div className="text-2xl font-extrabold text-gray-900">FIGROMA</div>
             <p className="text-gray-600 text-base leading-relaxed">
               Securely verify and manage your important documents with our
               decentralized application.
