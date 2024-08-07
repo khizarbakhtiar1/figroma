@@ -16,9 +16,19 @@ contract Institute is ERC721, Ownable {
     mapping(bytes32 => bool) public approvedDocuments;
     mapping(uint256 => bytes32) public tokenToDocument;
 
+    // New variables for credit system
+    uint256 public creditBalance;
+    uint256 public constant BASIC_PLAN_CREDITS = 100;
+    uint256 public constant STANDARD_PLAN_CREDITS = 500;
+    uint256 public constant PREMIUM_PLAN_CREDITS = 1500;
+    uint256 public constant BASIC_PLAN_PRICE = 100 ether; // Assuming 1 ether = $1 for simplicity
+    uint256 public constant STANDARD_PLAN_PRICE = 350 ether;
+    uint256 public constant PREMIUM_PLAN_PRICE = 750 ether;
+
     event DocumentRequestSubmitted(bytes32 indexed documentHash);
     event SoulBoundTokenMinted(address indexed to, uint256 indexed tokenId, bytes32 indexed documentHash);
     event SoulBoundTokenRevoked(uint256 indexed tokenId, bytes32 indexed documentHash);
+    event CreditsPurchased(uint256 amount, uint256 price);
 
     constructor(address _institute, address _higherAuthority, address _identityRegistry) ERC721("SoulBoundToken", "SBT") Ownable(msg.sender) {
         instituteAddress = _institute;
@@ -34,7 +44,9 @@ contract Institute is ERC721, Ownable {
 
     function submitDocumentRequest(bytes32 _documentHash) external onlyOwner {
         require(!documentRequests[_documentHash], "Document request already submitted");
+        require(creditBalance > 0, "Insufficient credits");
         documentRequests[_documentHash] = true;
+        creditBalance--;
         emit DocumentRequestSubmitted(_documentHash);
     }
 
@@ -59,7 +71,6 @@ contract Institute is ERC721, Ownable {
     }
 
     function revokeSoulBoundToken(uint256 _tokenId) external onlyOwner {
-       
         bytes32 documentHash = tokenToDocument[_tokenId];
 
         _burn(_tokenId);
@@ -72,5 +83,32 @@ contract Institute is ERC721, Ownable {
         address from = _ownerOf(tokenId);
         require(from == address(0) || to == address(0), "SoulBoundToken: token transfer is not allowed");
         return super._update(to, tokenId, auth);
+    }
+
+    function purchaseCredits(uint256 planType) external payable onlyOwner {
+        uint256 credits;
+        uint256 price;
+
+        if (planType == 1) {
+            credits = BASIC_PLAN_CREDITS;
+            price = BASIC_PLAN_PRICE;
+        } else if (planType == 2) {
+            credits = STANDARD_PLAN_CREDITS;
+            price = STANDARD_PLAN_PRICE;
+        } else if (planType == 3) {
+            credits = PREMIUM_PLAN_CREDITS;
+            price = PREMIUM_PLAN_PRICE;
+        } else {
+            revert("Invalid plan type");
+        }
+
+        require(msg.value == price, "Incorrect payment amount");
+
+        creditBalance += credits;
+        emit CreditsPurchased(credits, price);
+    }
+
+    function getCreditBalance() external view returns (uint256) {
+        return creditBalance;
     }
 }
