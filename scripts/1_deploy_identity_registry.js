@@ -1,14 +1,17 @@
-// scripts/1_deploy_identity_registry.js
-async function main() {
-  const [deployer] = await ethers.getSigners();
-  console.log("Deploying contracts with the account:", deployer.address);
+const hre = require("hardhat");
 
-  const IdentityRegistry = await ethers.getContractFactory("IdentityRegistry");
+async function main() {
+  const IdentityRegistry = await hre.ethers.getContractFactory(
+    "IdentityRegistry"
+  );
+
+  console.log("Deploying IdentityRegistry...");
   const identityRegistry = await IdentityRegistry.deploy();
 
-  await identityRegistry.deployed();
-
-  console.log("IdentityRegistry deployed to:", identityRegistry.address);
+  console.log(
+    "IdentityRegistry deployed to:",
+    await identityRegistry.getAddress()
+  );
 }
 
 main()

@@ -3,26 +3,30 @@ const hre = require("hardhat");
 async function main() {
   const [deployer] = await hre.ethers.getSigners();
 
-  console.log("Deploying contracts with the account:", deployer.address);
+  console.log(
+    "Deploying contracts with the account:",
+    await deployer.getAddress()
+  );
 
   const IdentityRegistry = await hre.ethers.getContractFactory(
     "IdentityRegistry"
   );
-  const identityRegistryAddress = "ADDRESS_FROM_STEP_1"; // Replace with actual address
+  const identityRegistryAddress = "0x371E23E2E16FcD36887d0DFC9D93f7fCdBfcc86D"; // Replace with actual address
 
   const Factory = await hre.ethers.getContractFactory("Factory");
   const factory = await Factory.deploy(
     identityRegistryAddress,
-    deployer.address
+    await deployer.getAddress()
   );
 
-  await factory.deployed();
+  // Wait for the transaction to be mined
+  await factory.waitForDeployment();
 
-  console.log("Factory deployed to:", factory.address);
+  console.log("Factory deployed to:", await factory.getAddress());
 
   // Set factory address in IdentityRegistry
   const identityRegistry = IdentityRegistry.attach(identityRegistryAddress);
-  await identityRegistry.setFactory(factory.address);
+  await identityRegistry.setFactory(await factory.getAddress());
   console.log("Factory address set in IdentityRegistry");
 }
 
