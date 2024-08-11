@@ -28,7 +28,10 @@
     ".next/types/**/*.ts",
     "src/components/RegistrationForm.tsx",
     "src/components/Body.tsx",
-    "src/components/Body.tsx"
+    "src/components/Body.tsx",
+    "src/hooks/useMetamaskConnection.js",
+    "src/components/component/wallet-connect.jsx",
+    "src/components/WalletConnectButton.jsx"
   ],
   "exclude": ["node_modules"]
 }

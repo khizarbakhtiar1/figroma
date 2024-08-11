@@ -11,6 +11,7 @@ import {
   SheetContent,
   SheetClose,
 } from "@/components/ui/sheet";
+import { WalletConnect } from "./WalletConnect";
 
 export function Header() {
   return (
@@ -34,11 +35,11 @@ export function Header() {
               </NavigationMenuLink>
               <NavigationMenuLink asChild>
                 <Link
-                  href="#"
+                  href="/plans"
                   className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground focus:outline-none dark:bg-gray-900 dark:text-white dark:hover:bg-primary dark:hover:text-primary-foreground dark:focus:bg-primary dark:focus:text-primary-foreground"
                   prefetch={false}
                 >
-                  Pricing
+                  Plans
                 </Link>
               </NavigationMenuLink>
               <NavigationMenuLink asChild>
@@ -62,10 +63,13 @@ export function Header() {
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
-        <Button className="hidden items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 md:flex">
+        {/* <        <Button className="hidden items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 md:flex">
           <WalletIcon className="h-5 w-5" />
           <span>Connect Wallet</span>
-        </Button>
+        </Button>> */}
+        <div className="hidden items-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 md:flex">
+          <WalletConnect />
+        </div>
         <Sheet>
           <SheetTrigger asChild>
             <Button
@@ -108,12 +112,12 @@ export function Header() {
                 <span>Features</span>
               </Link>
               <Link
-                href="#"
+                href="/plans"
                 className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary hover:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
                 prefetch={false}
               >
                 <DollarSignIcon className="h-5 w-5" />
-                <span>Pricing</span>
+                <span>Plans</span>
               </Link>
               <Link
                 href="#"
@@ -125,10 +129,11 @@ export function Header() {
               </Link>
             </nav>
             <div className="border-t border-gray-200 px-4 py-4 dark:border-gray-700">
-              <Button className="flex w-full items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
+              {/* <Button className="flex w-full items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
                 <WalletIcon className="h-5 w-5" />
                 <span>Connect Wallet</span>
-              </Button>
+              </Button> */}
+              <WalletConnect />
             </div>
           </SheetContent>
         </Sheet>
