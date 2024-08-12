@@ -16,29 +16,39 @@ contract Institute is ERC721, Ownable {
     mapping(bytes32 => bool) public approvedDocuments;
     mapping(uint256 => bytes32) public tokenToDocument;
 
-    // New variables for credit system
+    // Credit system variables
     uint256 public creditBalance;
     uint256 public constant BASIC_PLAN_CREDITS = 100;
     uint256 public constant STANDARD_PLAN_CREDITS = 500;
     uint256 public constant PREMIUM_PLAN_CREDITS = 1500;
-    uint256 public constant BASIC_PLAN_PRICE = 100 ether; // Assuming 1 ether = $1 for simplicity
+    uint256 public constant BASIC_PLAN_PRICE = 100 ether;
     uint256 public constant STANDARD_PLAN_PRICE = 350 ether;
     uint256 public constant PREMIUM_PLAN_PRICE = 750 ether;
+
+    // New variable for storing the contract owner (super admin)
+    address private _superAdmin;
 
     event DocumentRequestSubmitted(bytes32 indexed documentHash);
     event SoulBoundTokenMinted(address indexed to, uint256 indexed tokenId, bytes32 indexed documentHash);
     event SoulBoundTokenRevoked(uint256 indexed tokenId, bytes32 indexed documentHash);
     event CreditsPurchased(uint256 amount, uint256 price);
+    event FundsWithdrawn(address indexed to, uint256 amount);
 
     constructor(address _institute, address _higherAuthority, address _identityRegistry) ERC721("SoulBoundToken", "SBT") Ownable(msg.sender) {
         instituteAddress = _institute;
         higherAuthority = _higherAuthority;
         identityRegistry = IdentityRegistry(_identityRegistry);
+        _superAdmin = msg.sender;  // Set the contract deployer as the super admin
         _transferOwnership(_institute);
     }
 
     modifier onlyHigherAuthority() {
         require(_msgSender() == higherAuthority, "Only higher authority can call this function");
+        _;
+    }
+
+    modifier onlySuperAdmin() {
+        require(_msgSender() == _superAdmin, "Only super admin can call this function");
         _;
     }
 
@@ -110,5 +120,27 @@ contract Institute is ERC721, Ownable {
 
     function getCreditBalance() external view returns (uint256) {
         return creditBalance;
+    }
+
+    // New function for the super admin to withdraw funds
+    function withdrawFunds() external onlySuperAdmin {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No funds to withdraw");
+        
+        (bool success, ) = _superAdmin.call{value: balance}("");
+        require(success, "Withdrawal failed");
+        
+        emit FundsWithdrawn(_superAdmin, balance);
+    }
+
+    // Function to get the super admin address
+    function getSuperAdmin() external view returns (address) {
+        return _superAdmin;
+    }
+
+    // Function to transfer super admin role (optional, for added flexibility)
+    function transferSuperAdmin(address newSuperAdmin) external onlySuperAdmin {
+        require(newSuperAdmin != address(0), "New super admin is the zero address");
+        _superAdmin = newSuperAdmin;
     }
 }

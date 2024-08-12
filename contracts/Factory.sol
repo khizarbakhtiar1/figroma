@@ -7,7 +7,7 @@ import "./Authority.sol";
 import "./Institute.sol";
 
 contract Factory is Ownable {
-    IdentityRegistry public identityRegistry;
+    IdentityRegistry public immutable identityRegistry;
     address public superHigherAuthority;
     
     mapping(address => address) public authorityContracts;
@@ -28,26 +28,20 @@ contract Factory is Ownable {
     }
 
     function createAuthorityContract(address _authority) external {
-        require(_msgSender() == address(identityRegistry), "Only IdentityRegistry can create Authority contracts");
+        require(msg.sender == address(identityRegistry), "Only IdentityRegistry can create Authority contracts");
         require(authorityContracts[_authority] == address(0), "Authority contract already exists");
-
-        Authority newAuthorityContract = new Authority(_authority, address(identityRegistry), _authority == superHigherAuthority);
-        authorityContracts[_authority] = address(newAuthorityContract);
-
-        emit AuthorityContractCreated(_authority, address(newAuthorityContract));
+        authorityContracts[_authority] = address(new Authority(_authority, address(identityRegistry), _authority == superHigherAuthority));
+        emit AuthorityContractCreated(_authority, authorityContracts[_authority]);
     }
 
     function createInstituteContract(address _institute, address _authority) external {
-        require(_msgSender() == address(identityRegistry), "Only IdentityRegistry can create Institute contracts");
+        require(msg.sender == address(identityRegistry), "Only IdentityRegistry can create Institute contracts");
         require(instituteContracts[_institute] == address(0), "Institute contract already exists");
         require(authorityContracts[_authority] != address(0), "Invalid authority");
-
-        Institute newInstituteContract = new Institute(_institute, _authority, address(identityRegistry));
-        instituteContracts[_institute] = address(newInstituteContract);
-
-        Authority(authorityContracts[_authority]).addInstitute(_institute, address(newInstituteContract));
-
-        emit InstituteContractCreated(_institute, address(newInstituteContract), _authority);
+        address newInstituteContract = address(new Institute(_institute, _authority, address(identityRegistry)));
+        instituteContracts[_institute] = newInstituteContract;
+        Authority(authorityContracts[_authority]).addInstitute(_institute, newInstituteContract);
+        emit InstituteContractCreated(_institute, newInstituteContract, _authority);
     }
 
     function getAuthorityContract(address _authority) external view returns (address) {

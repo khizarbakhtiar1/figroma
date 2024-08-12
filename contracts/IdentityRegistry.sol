@@ -28,6 +28,7 @@ contract IdentityRegistry is Ownable {
     uint8 public adminCount;
 
     mapping(address => HigherAuthority) public higherAuthorities;
+    mapping(address => mapping(address => bool)) public higherAuthorityAdminApprovals;
     mapping(address => Institute) public institutes;
 
     uint8 public constant MAX_ADMINS = 5;
@@ -39,6 +40,7 @@ contract IdentityRegistry is Ownable {
     event AdminRemoved(address indexed admin);
     event HigherAuthorityRegistered(address indexed authority);
     event HigherAuthorityApproved(address indexed authority);
+    event HigherAuthorityRejected(address indexed authority);
     event InstituteRegistered(address indexed institute, address indexed authority);
     event InstituteApproved(address indexed institute);
     event InstituteRejected(address indexed institute);
@@ -60,7 +62,7 @@ contract IdentityRegistry is Ownable {
 
     function addAdmin(address _newAdmin) external onlyOwner {
         require(!admins[_newAdmin].exists, "Admin already exists");
-        require(adminCount <= MAX_ADMINS, "Maximum admin limit reached");
+        require(adminCount < MAX_ADMINS, "Maximum admin limit reached");
 
         admins[_newAdmin] = Admin(true, true);
         adminCount++;
@@ -81,7 +83,13 @@ contract IdentityRegistry is Ownable {
     function registerHigherAuthority(string memory _authorityName) external {
         require(!higherAuthorities[msg.sender].exists, "Higher authority already registered");
 
-        higherAuthorities[msg.sender] = HigherAuthority(msg.sender, _authorityName, 0, false, true);
+        higherAuthorities[msg.sender] = HigherAuthority({
+            walletAddress: msg.sender,
+            authorityName: _authorityName,
+            approvalCount: 0,
+            isApproved: false,
+            exists: true
+        });
 
         emit HigherAuthorityRegistered(msg.sender);
     }
@@ -89,15 +97,29 @@ contract IdentityRegistry is Ownable {
     function approveHigherAuthority(address _authority) external onlyAdmin {
         require(higherAuthorities[_authority].exists, "Higher authority does not exist");
         require(!higherAuthorities[_authority].isApproved, "Higher authority already approved");
+        require(!higherAuthorityAdminApprovals[_authority][msg.sender], "Admin has already approved this authority");
 
-        HigherAuthority storage authority = higherAuthorities[_authority];
-        authority.approvalCount++;
+        higherAuthorityAdminApprovals[_authority][msg.sender] = true;
+        higherAuthorities[_authority].approvalCount++;
 
-        if (authority.approvalCount >= REQUIRED_APPROVALS) {
-            authority.isApproved = true;
+        if (higherAuthorities[_authority].approvalCount >= REQUIRED_APPROVALS) {
+            higherAuthorities[_authority].isApproved = true;
             IFactory(factoryAddress).createAuthorityContract(_authority);
             emit HigherAuthorityApproved(_authority);
         }
+    }
+
+    function rejectHigherAuthority(address _authority) external onlyAdmin {
+        require(higherAuthorities[_authority].exists, "Higher authority does not exist");
+        require(!higherAuthorities[_authority].isApproved, "Higher authority already approved");
+
+        delete higherAuthorities[_authority];
+        // Clear admin approvals
+        for (uint i = 0; i < MAX_ADMINS; i++) {
+            delete higherAuthorityAdminApprovals[_authority][address(uint160(i))];
+        }
+
+        emit HigherAuthorityRejected(_authority);
     }
 
     function registerInstitute(string memory _instituteName, address _higherAuthority) external {
