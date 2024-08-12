@@ -33,8 +33,8 @@ export function Body() {
           </div>
           <div className="hidden md:block">
             <img
-              src="/placeholder.svg"
-              width={600}
+              src="/nC_SH_J8QueCBvcUdX_m9A.png"
+              width={540}
               height={400}
               alt="Hero Image"
               className="rounded-lg shadow-lg"
@@ -53,40 +53,6 @@ export function Body() {
               blockchain technology to provide secure and instant verification
               of educational credentials.
             </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-background rounded-lg p-6 space-y-4 shadow-lg">
-              <div className="bg-primary rounded-md p-3 w-fit">
-                <UploadIcon className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <h3 className="text-xl font-semibold">Upload Documents</h3>
-              <p className="text-muted-foreground">
-                Securely upload your educational documents to the Figroma
-                platform.
-              </p>
-            </div>
-            <div className="bg-background rounded-lg p-6 space-y-4 shadow-lg">
-              <div className="bg-primary rounded-md p-3 w-fit">
-                <BadgeCheckIcon className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <h3 className="text-xl font-semibold">Verify Credentials</h3>
-              <p className="text-muted-foreground">
-                Instantly verify the authenticity of your educational
-                credentials using blockchain technology.
-              </p>
-            </div>
-            <div className="bg-background rounded-lg p-6 space-y-4 shadow-lg">
-              <div className="bg-primary rounded-md p-3 w-fit">
-                <ShareIcon className="w-6 h-6 text-primary-foreground" />
-              </div>
-              <h3 className="text-xl font-semibold">
-                Share Verified Credentials
-              </h3>
-              <p className="text-muted-foreground">
-                Share your verified educational credentials with employers,
-                schools, and other institutions.
-              </p>
-            </div>
           </div>
         </div>
       </section>

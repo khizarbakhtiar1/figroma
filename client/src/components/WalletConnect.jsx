@@ -99,7 +99,7 @@ export function WalletConnect() {
               <ChevronDownIcon className="h-4 w-4 text-muted-foreground" />
             </>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-black">
               <WalletIcon className="h-4 w-4" />
               Connect Wallet
             </div>

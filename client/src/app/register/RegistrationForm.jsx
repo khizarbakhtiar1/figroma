@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 export function Register() {
   const [isInstituteForm, setIsInstituteForm] = useState(true);
   return (
-    <Card className="mx-auto max-w-md">
+    <Card className="w-full max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md sm:p-10">
       <CardHeader>
         <CardTitle>Sign Up!</CardTitle>
         <CardDescription>
