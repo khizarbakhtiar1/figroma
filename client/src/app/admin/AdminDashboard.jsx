@@ -43,7 +43,8 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-
+import AddAdminButton from "./AddAdminButton";
+import RemoveAdminButton from "./RemoveAdminButton";
 export function AdminDashboard() {
   const [approvedRequests, setApprovedRequests] = useState([]);
   const [isAdminView, setIsAdminView] = useState(false);
@@ -56,18 +57,7 @@ export function AdminDashboard() {
   const handleApprove = (request) => {
     setApprovedRequests([...approvedRequests, request]);
   };
-  const handleAddAdmin = () => {
-    if (newAdminName.trim() !== "") {
-      setAdmins([
-        ...admins,
-        { id: `ADMIN-${admins.length + 1}`, name: newAdminName },
-      ]);
-      setNewAdminName("");
-    }
-  };
-  const handleRemoveAdmin = (admin) => {
-    setAdmins(admins.filter((a) => a.id !== admin.id));
-  };
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -364,7 +354,7 @@ export function AdminDashboard() {
                         placeholder="New Admin Name"
                         className="flex-1"
                       />
-                      <Button onClick={handleAddAdmin}>Add Admin</Button>
+                      <AddAdminButton />
                     </div>
                     <Table>
                       <TableHeader>
@@ -384,13 +374,11 @@ export function AdminDashboard() {
                             </TableCell>
                             <TableCell>{admin.name}</TableCell>
                             <TableCell>
-                              <Button
-                                variant="outline"
-                                className="bg-[#EF4444] text-white hover:bg-[#DC2626] focus:ring-[#EF4444]"
-                                onClick={() => handleRemoveAdmin(admin)}
-                              >
-                                Remove
-                              </Button>
+                              <RemoveAdminButton
+                                admin={admin}
+                                admins={admins}
+                                setAdmins={setAdmins}
+                              />
                             </TableCell>
                           </TableRow>
                         ))}
