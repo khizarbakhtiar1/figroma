@@ -45,18 +45,18 @@ import {
 import { Badge } from "@/components/ui/badge";
 import AddAdminButton from "./AddAdminButton";
 import RemoveAdminButton from "./RemoveAdminButton";
+import HighAuthApprovalButton from "./HighAuthApprovalButton";
+import { Web3Provider } from "@/components/Web3Provider";
+
 export function AdminDashboard() {
-  const [approvedRequests, setApprovedRequests] = useState([]);
   const [isAdminView, setIsAdminView] = useState(false);
   const [admins, setAdmins] = useState([
-    { id: "ADMIN-001", name: "John Doe" },
-    { id: "ADMIN-002", name: "Jane Smith" },
-    { id: "ADMIN-003", name: "Michael Johnson" },
+    { id: "0xDc927Bd56CF9DfC2e3779C7E3D6d28dA1C219969", name: "Farzan" },
+    { id: "0x7DD92c8aC584503885B95009330d89Da158E5f41", name: "Syed Asmar" },
+    { id: "0x8C0100Bd2C2Db24e3d63275716eFd89159781727", name: "Emad Zaheer" },
   ]);
   const [newAdminName, setNewAdminName] = useState("");
-  const handleApprove = (request) => {
-    setApprovedRequests([...approvedRequests, request]);
-  };
+  const [approvedRequests, setApprovedRequests] = useState([]);
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -322,13 +322,21 @@ export function AdminDashboard() {
                           <Badge variant="outline">Pending</Badge>
                         </TableCell>
                         <TableCell>
-                          <Button
-                            variant="outline"
-                            className="bg-[#3B82F6] text-white hover:bg-[#2563EB] focus:ring-[#3B82F6]"
-                            onClick={() => handleApprove(request)}
-                          >
-                            Approve
-                          </Button>
+                          <HighAuthApprovalButton
+                            setApprovedRequests={setApprovedRequests}
+                          />
+                          {approvedRequests.length > 0 && (
+                            <Card className="w-full">
+                              <CardHeader className="px-7">
+                                <CardTitle>
+                                  Approved Higher Authority Requests
+                                </CardTitle>
+                              </CardHeader>
+                              <CardContent>
+                                {/* Render approved requests here */}
+                              </CardContent>
+                            </Card>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -348,18 +356,14 @@ export function AdminDashboard() {
                 <CardContent>
                   <div className="grid gap-4">
                     <div className="flex items-center gap-2">
-                      <Input
-                        value={newAdminName}
-                        onChange={(e) => setNewAdminName(e.target.value)}
-                        placeholder="New Admin Name"
-                        className="flex-1"
-                      />
-                      <AddAdminButton />
+                      <Web3Provider>
+                        <AddAdminButton />
+                      </Web3Provider>
                     </div>
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Admin ID</TableHead>
+                          <TableHead>Admin Wallet Address</TableHead>
                           <TableHead>Name</TableHead>
                           <TableHead>
                             <span className="sr-only">Actions</span>

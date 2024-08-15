@@ -16,18 +16,18 @@ export function Body() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="#"
+                href="/register"
                 className="inline-flex h-10 items-center justify-center rounded-md bg-white px-6 text-sm font-medium text-[#0077B6] shadow transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
                 Register
               </Link>
               <Link
-                href="#"
+                href="#contact"
                 className="inline-flex h-10 items-center justify-center rounded-md border border-white px-6 text-sm font-medium text-white shadow transition-colors hover:bg-white hover:text-[#0077B6] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
-                Login
+                Contact Us
               </Link>
             </div>
           </div>
@@ -106,7 +106,7 @@ export function Body() {
       <section className="w-full py-20 md:py-32">
         <div className="container px-4 md:px-6 space-y-8">
           <div className="text-center space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 id="features" className="text-3xl md:text-4xl font-bold">
               Key Features and Benefits
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground">

@@ -1,9 +1,35 @@
+"use client";
+import React, { useState, useEffect, use } from "react";
 import { Button } from "@/components/ui/button";
+import PurchaseCreditButton from "./PurchaseCreditButton";
 
 export function Pricing() {
+  const [instituteAddress, setInstituteAddress] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const fetchInstituteAddress = async () => {
+      try {
+        // Replace this with your actual method to fetch the Institute contract address
+        const address = await getInstituteAddress();
+        setInstituteAddress(address);
+      } catch (error) {
+        console.error("Error fetching Institute address:", error);
+        setErrorMessage(
+          "Failed to fetch Institute address. Please try again later."
+        );
+      }
+    };
+
+    fetchInstituteAddress();
+  }, []);
+
   return (
-    <section className="min-h-screen w-full py-12 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 flex items-center justify-center">
+    <section className="py-12 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-zinc-900 dark:to-zinc-800 flex items-start justify-center">
       <div className="container px-4 md:px-6">
+        {errorMessage && (
+          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+        )}
         <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3 md:gap-8">
           <div className="flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-300">
             <div className="mx-1">
@@ -23,7 +49,13 @@ export function Pricing() {
               </ul>
             </div>
             <div className="mt-6">
-              <Button className="w-full">Get Started</Button>
+              <PurchaseCreditButton
+                instituteAddress={instituteAddress}
+                planType={1}
+                credits={100}
+                price={49}
+                className="w-full"
+              />
             </div>
           </div>
           <div className="relative flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-purple-500">
@@ -47,9 +79,13 @@ export function Pricing() {
               </ul>
             </div>
             <div className="mt-6">
-              <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500">
-                Get Started
-              </Button>
+              <PurchaseCreditButton
+                instituteAddress={instituteAddress}
+                planType={2}
+                credits={500}
+                price={199}
+                className="w-full bg-gradient-to-r from-pink-500 to-purple-500"
+              />
             </div>
           </div>
           <div className="flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-300">
@@ -70,7 +106,13 @@ export function Pricing() {
               </ul>
             </div>
             <div className="mt-6">
-              <Button className="w-full">Get Started</Button>
+              <PurchaseCreditButton
+                instituteAddress={instituteAddress}
+                planType={3}
+                credits={1500}
+                price={449}
+                className="w-full"
+              />
             </div>
           </div>
         </div>
@@ -79,7 +121,7 @@ export function Pricing() {
   );
 }
 
-function CheckIcon(props: any) {
+function CheckIcon(props) {
   return (
     <svg
       {...props}

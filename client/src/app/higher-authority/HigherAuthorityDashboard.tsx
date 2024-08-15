@@ -19,6 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import ApproveInstituteButton from "./ApproveInstituteButton";
 
 export function HigherAuthorityDashboard() {
   const [activeTab, setActiveTab] = useState("pending-approvals");
@@ -48,7 +49,7 @@ export function HigherAuthorityDashboard() {
                   <TableBody>
                     <TableRow>
                       <TableCell className="font-medium">
-                        Acme University
+                        Fast University
                       </TableCell>
                       <TableCell>
                         <Badge
@@ -59,18 +60,12 @@ export function HigherAuthorityDashboard() {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          className="bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:text-white"
-                        >
-                          Approve Institute
-                        </Button>
+                        <ApproveInstituteButton />
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">
-                        Globex College
+                        Virtual University
                       </TableCell>
                       <TableCell>
                         <Badge
@@ -81,18 +76,12 @@ export function HigherAuthorityDashboard() {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          className="bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:text-white"
-                        >
-                          Approve Institute
-                        </Button>
+                        <ApproveInstituteButton />
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell className="font-medium">
-                        Stark Industries
+                        Oxford University
                       </TableCell>
                       <TableCell>
                         <Badge
@@ -103,13 +92,7 @@ export function HigherAuthorityDashboard() {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          className="bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:text-white"
-                        >
-                          Approve Institute
-                        </Button>
+                        <ApproveInstituteButton />
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -205,7 +188,7 @@ export function HigherAuthorityDashboard() {
                       <TableBody>
                         <TableRow>
                           <TableCell className="font-medium">
-                            Acme University
+                            MIT University
                           </TableCell>
                           <TableCell>Accreditation Certificate</TableCell>
                           <TableCell>
@@ -229,7 +212,7 @@ export function HigherAuthorityDashboard() {
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">
-                            Globex College
+                            Harvard University
                           </TableCell>
                           <TableCell>Curriculum Approval</TableCell>
                           <TableCell>
@@ -253,7 +236,7 @@ export function HigherAuthorityDashboard() {
                         </TableRow>
                         <TableRow>
                           <TableCell className="font-medium">
-                            Stark Industries
+                            Stanford University
                           </TableCell>
                           <TableCell>Facility Inspection Report</TableCell>
                           <TableCell>

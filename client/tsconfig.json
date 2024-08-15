@@ -36,7 +36,9 @@
     "src/app/institute/InstituteDashboard.jsx",
     "src/app/admin/page.jsx",
     "src/app/admin/admin-dashboard.jsx",
-    "src/components/WalletConnect.jsx"
+    "src/components/WalletConnect.jsx",
+    "src/components/pricing.jsx",
+    "src/components/pricing.jsx"
   ],
   "exclude": ["node_modules"]
 }

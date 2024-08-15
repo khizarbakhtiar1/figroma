@@ -25,6 +25,9 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import SubmitDocumentButton from "./SubmitDocumentButton";
+import MintingButton from "./MintingButton";
+import { Pricing } from "@/components/pricing.jsx";
 
 export function InstituteDashboard() {
   return (
@@ -47,12 +50,10 @@ export function InstituteDashboard() {
           </div>
           <div className="flex items-center gap-2 text-sm font-medium">
             <BuildingIcon className="h-4 w-4" />
-            <span>Higher Authority: Acme University</span>
+            <span>Higher Authority: HEC</span>
           </div>
-          <Button className="h-8 gap-2 text-sm">
-            <PlusIcon className="h-4 w-4" />
-            Submit Document Request
-          </Button>
+
+          <SubmitDocumentButton />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -107,10 +108,7 @@ export function InstituteDashboard() {
                     <Badge variant="secondary">Approved</Badge>
                   </TableCell>
                   <TableCell>
-                    <Button size="sm" className="h-7 gap-1 text-sm">
-                      <CoinsIcon className="h-4 w-4" />
-                      Mint Soul Bound Token
-                    </Button>
+                    <MintingButton />
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -119,10 +117,7 @@ export function InstituteDashboard() {
                     <Badge variant="secondary">Approved</Badge>
                   </TableCell>
                   <TableCell>
-                    <Button size="sm" className="h-7 gap-1 text-sm">
-                      <CoinsIcon className="h-4 w-4" />
-                      Mint Soul Bound Token
-                    </Button>
+                    <MintingButton />
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -133,10 +128,7 @@ export function InstituteDashboard() {
                     <Badge variant="secondary">Approved</Badge>
                   </TableCell>
                   <TableCell>
-                    <Button size="sm" className="h-7 gap-1 text-sm">
-                      <CoinsIcon className="h-4 w-4" />
-                      Mint Soul Bound Token
-                    </Button>
+                    <MintingButton />
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -147,10 +139,7 @@ export function InstituteDashboard() {
                     <Badge variant="secondary">Approved</Badge>
                   </TableCell>
                   <TableCell>
-                    <Button size="sm" className="h-7 gap-1 text-sm">
-                      <CoinsIcon className="h-4 w-4" />
-                      Mint Soul Bound Token
-                    </Button>
+                    <MintingButton />
                   </TableCell>
                 </TableRow>
               </TableBody>
@@ -224,56 +213,39 @@ export function InstituteDashboard() {
             </Table>
           </CardContent>
         </Card>
-        <Card className="w-full">
+        <Card>
           <CardHeader>
             <CardTitle>Purchase Credits</CardTitle>
             <CardDescription>
               Select a plan to purchase additional credits.
             </CardDescription>
+            <Pricing />
           </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-              <Card className="bg-primary text-primary-foreground">
-                <CardHeader>
-                  <CardTitle>Basic</CardTitle>
-                  <CardDescription>100 Credits</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-4xl font-bold">$10</div>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="primary-foreground">Purchase</Button>
-                </CardFooter>
-              </Card>
-              <Card className="bg-primary text-primary-foreground">
-                <CardHeader>
-                  <CardTitle>Pro</CardTitle>
-                  <CardDescription>500 Credits</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-4xl font-bold">$50</div>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="primary-foreground">Purchase</Button>
-                </CardFooter>
-              </Card>
-              <Card className="bg-primary text-primary-foreground">
-                <CardHeader>
-                  <CardTitle>Enterprise</CardTitle>
-                  <CardDescription>1000 Credits</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-4xl font-bold">$100</div>
-                </CardContent>
-                <CardFooter>
-                  <Button variant="primary-foreground">Purchase</Button>
-                </CardFooter>
-              </Card>
-            </div>
-          </CardContent>
         </Card>
       </main>
     </div>
+  );
+}
+
+function CoinsIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="8" cy="8" r="6" />
+      <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
+      <path d="M7 6h1v4" />
+      <path d="m16.71 13.88.7.71-2.82 2.82" />
+    </svg>
   );
 }
 
@@ -306,28 +278,6 @@ function BuildingIcon(props) {
   );
 }
 
-function CoinsIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="8" cy="8" r="6" />
-      <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
-      <path d="M7 6h1v4" />
-      <path d="m16.71 13.88.7.71-2.82 2.82" />
-    </svg>
-  );
-}
-
 function Package2Icon(props) {
   return (
     <svg
@@ -345,26 +295,6 @@ function Package2Icon(props) {
       <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
       <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
       <path d="M12 3v6" />
-    </svg>
-  );
-}
-
-function PlusIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14" />
-      <path d="M12 5v14" />
     </svg>
   );
 }

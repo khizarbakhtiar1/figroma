@@ -1,5 +1,5 @@
 import React from "react";
-import { Pricing } from "./pricing";
+import { Pricing } from "../../components/pricing.jsx";
 
 const Plans = () => {
   return (

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import {
   Card,
   CardHeader,
@@ -22,6 +23,26 @@ import {
 import { Button } from "@/components/ui/button";
 
 export function Register() {
+  const [walletAddress, setWalletAddress] = useState("");
+  useEffect(() => {
+    const fetchWalletAddress = async () => {
+      if (window.ethereum) {
+        try {
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          setWalletAddress(accounts[0]);
+        } catch (error) {
+          console.error("Error fetching wallet address:", error);
+        }
+      } else {
+        console.error("MetaMask is not installed");
+      }
+    };
+
+    fetchWalletAddress();
+  }, []);
+
   const [isInstituteForm, setIsInstituteForm] = useState(true);
   return (
     <Card className="w-full max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md sm:p-10">
@@ -58,8 +79,10 @@ export function Register() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="wallet">Wallet Address</Label>
-                <Input id="wallet" readOnly />
+                <div className="space-y-2">
+                  <Label htmlFor="wallet">Wallet Address</Label>
+                  <Input id="wallet" value={walletAddress} readOnly />
+                </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="institute-type">Institute Type</Label>
@@ -107,8 +130,10 @@ export function Register() {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="wallet">Wallet Address</Label>
-                <Input id="wallet" readOnly />
+                <div className="space-y-2">
+                  <Label htmlFor="wallet">Wallet Address</Label>
+                  <Input id="wallet" value={walletAddress} readOnly />
+                </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="authority-type">Authority Type</Label>
