@@ -51,7 +51,6 @@ const RemoveAdminButton = ({ admin, admins, setAdmins }) => {
     <div>
       <Button
         variant="outline"
-        className="bg-[#EF4444] hover:bg-[#DC2626] focus:ring-[#EF4444]"
         onClick={handleRemoveAdmin}
         disabled={isRemoving}
       >

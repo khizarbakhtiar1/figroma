@@ -20,6 +20,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ApproveInstituteButton from "./ApproveInstituteButton";
+import DocumentAprrovalButton from "./DocumentApprovalButton";
+import DocumentRejectButton from "./DocumentRejectButton";
 
 export function HigherAuthorityDashboard() {
   const [activeTab, setActiveTab] = useState("pending-approvals");
@@ -193,20 +195,8 @@ export function HigherAuthorityDashboard() {
                           <TableCell>Accreditation Certificate</TableCell>
                           <TableCell>
                             <div className="flex gap-2">
-                              <Button
-                                variant="secondary"
-                                size="sm"
-                                className="bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:text-white"
-                              >
-                                Approve
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
-                              >
-                                Reject
-                              </Button>
+                              <DocumentAprrovalButton />
+                              <DocumentRejectButton />
                             </div>
                           </TableCell>
                         </TableRow>
@@ -217,20 +207,8 @@ export function HigherAuthorityDashboard() {
                           <TableCell>Curriculum Approval</TableCell>
                           <TableCell>
                             <div className="flex gap-2">
-                              <Button
-                                variant="secondary"
-                                size="sm"
-                                className="bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:text-white"
-                              >
-                                Approve
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
-                              >
-                                Reject
-                              </Button>
+                              <DocumentAprrovalButton />
+                              <DocumentRejectButton />
                             </div>
                           </TableCell>
                         </TableRow>
@@ -241,20 +219,8 @@ export function HigherAuthorityDashboard() {
                           <TableCell>Facility Inspection Report</TableCell>
                           <TableCell>
                             <div className="flex gap-2">
-                              <Button
-                                variant="secondary"
-                                size="sm"
-                                className="bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:text-white"
-                              >
-                                Approve
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-red-600 border-red-600 hover:bg-red-600 hover:text-white"
-                              >
-                                Reject
-                              </Button>
+                              <DocumentAprrovalButton />
+                              <DocumentRejectButton />
                             </div>
                           </TableCell>
                         </TableRow>

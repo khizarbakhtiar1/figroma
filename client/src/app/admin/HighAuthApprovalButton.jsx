@@ -30,12 +30,7 @@ const HighAuthApprovalButton = ({ authorityAddress }) => {
 
   return (
     <div>
-      <Button
-        variant="outline"
-        className="bg-[#3B82F6] text-white hover:bg-[#2563EB] focus:ring-[#3B82F6]"
-        onClick={handleApprove}
-        disabled={isApproving}
-      >
+      <Button onClick={handleApprove} disabled={isApproving}>
         {isApproving ? "Approving..." : "Approve"}
       </Button>
       {error && <p className="text-red-500 mt-2">{error}</p>}
