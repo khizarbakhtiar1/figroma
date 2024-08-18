@@ -32,13 +32,12 @@ const config: HardhatUserConfig = {
       url: "https://rpc-vanguard.vanarchain.com/",
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
     },
-    // ... other networks (optional)
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY, // Optional, for Etherscan verification
+    apiKey: process.env.ETHERSCAN_API_KEY,
   },
   paths: {
-    artifacts: "./frontend/artifacts", // Optional, adjust path if needed
+    artifacts: "./frontend/artifacts",
   },
 };
 

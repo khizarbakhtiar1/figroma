@@ -156,92 +156,23 @@ export function AboutSection() {
               revolutionize document verification.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8 justify-center">
             <div className="bg-background rounded-lg shadow-lg overflow-hidden">
-              <div
-                className="h-48 bg-cover bg-center"
-                style={{ backgroundImage: 'url("/placeholder-user.jpg")' }}
+              <img
+                alt="Khizar Bakhtiar - Founder & CEO"
+                className="rounded-lg shadow-lg"
+                src="/KhizarProfile.jpg"
               />
               <div className="p-4">
-                <h3 className="text-xl font-semibold">John Doe</h3>
-                <p className="text-muted-foreground">Co-Founder & CEO</p>
+                <h3 className="text-xl font-semibold">Khizar Bakhtiar</h3>
+                <p className="text-muted-foreground">Founder & CEO</p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  John is a seasoned blockchain expert with a passion for
+                  Khizar is a seasoned blockchain developer with a passion for
                   revolutionizing digital identity management.
                 </p>
                 <div className="mt-4">
                   <Link
-                    href="#"
-                    className="text-primary hover:underline"
-                    prefetch={false}
-                  >
-                    View Profile
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="bg-background rounded-lg shadow-lg overflow-hidden">
-              <div
-                className="h-48 bg-cover bg-center"
-                style={{ backgroundImage: 'url("/placeholder-user.jpg")' }}
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold">Jane Smith</h3>
-                <p className="text-muted-foreground">Co-Founder & CTO</p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Jane is a blockchain engineer with extensive experience in
-                  building secure and scalable decentralized applications.
-                </p>
-                <div className="mt-4">
-                  <Link
-                    href="#"
-                    className="text-primary hover:underline"
-                    prefetch={false}
-                  >
-                    View Profile
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="bg-background rounded-lg shadow-lg overflow-hidden">
-              <div
-                className="h-48 bg-cover bg-center"
-                style={{ backgroundImage: 'url("/placeholder-user.jpg")' }}
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold">Michael Johnson</h3>
-                <p className="text-muted-foreground">Head of Product</p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Michael is a product manager with a deep understanding of the
-                  document verification industry and a keen eye for user
-                  experience.
-                </p>
-                <div className="mt-4">
-                  <Link
-                    href="#"
-                    className="text-primary hover:underline"
-                    prefetch={false}
-                  >
-                    View Profile
-                  </Link>
-                </div>
-              </div>
-            </div>
-            <div className="bg-background rounded-lg shadow-lg overflow-hidden">
-              <div
-                className="h-48 bg-cover bg-center"
-                style={{ backgroundImage: 'url("/placeholder-user.jpg")' }}
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold">Emily Davis</h3>
-                <p className="text-muted-foreground">Head of Marketing</p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  Emily is a marketing strategist with a passion for building
-                  brand awareness and driving customer engagement.
-                </p>
-                <div className="mt-4">
-                  <Link
-                    href="#"
+                    href="https://www.linkedin.com/in/khizarbakhtiar/"
                     className="text-primary hover:underline"
                     prefetch={false}
                   >

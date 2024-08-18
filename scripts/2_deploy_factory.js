@@ -11,7 +11,7 @@ async function main() {
   const IdentityRegistry = await hre.ethers.getContractFactory(
     "IdentityRegistry"
   );
-  const identityRegistryAddress = "0x2A02EA91c93974D46533Abf1746061FA8c99352E"; // Replace with actual address
+  const identityRegistryAddress = "0x2A02EA91c93974D46533Abf1746061FA8c99352E";
 
   const Factory = await hre.ethers.getContractFactory("Factory");
   const factory = await Factory.deploy(

@@ -23,11 +23,11 @@ export function Body() {
                 Register
               </Link>
               <Link
-                href="#contact"
+                href="/login"
                 className="inline-flex h-10 items-center justify-center rounded-md border border-white px-6 text-sm font-medium text-white shadow transition-colors hover:bg-white hover:text-[#0077B6] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
                 prefetch={false}
               >
-                Contact Us
+                Login
               </Link>
             </div>
           </div>

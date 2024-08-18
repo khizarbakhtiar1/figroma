@@ -10,8 +10,7 @@ export function Pricing() {
   useEffect(() => {
     const fetchInstituteAddress = async () => {
       try {
-        // Replace this with your actual method to fetch the Institute contract address
-        const address = await getInstituteAddress();
+        const address = "0x8F2D5BdB4F7C380e05AcEA2950dE9D03d9E75F4f";
         setInstituteAddress(address);
       } catch (error) {
         console.error("Error fetching Institute address:", error);

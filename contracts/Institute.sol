@@ -16,7 +16,6 @@ contract Institute is ERC721, Ownable {
     mapping(bytes32 => bool) public approvedDocuments;
     mapping(uint256 => bytes32) public tokenToDocument;
 
-    // Credit system variables
     uint256 public creditBalance;
     uint256 public constant BASIC_PLAN_CREDITS = 100;
     uint256 public constant STANDARD_PLAN_CREDITS = 500;
@@ -25,7 +24,7 @@ contract Institute is ERC721, Ownable {
     uint256 public constant STANDARD_PLAN_PRICE = 199 ether;
     uint256 public constant PREMIUM_PLAN_PRICE = 499 ether;
 
-    // New variable for storing the contract owner (super admin)
+
     address private _superAdmin;
 
     event DocumentRequestSubmitted(bytes32 indexed documentHash);
@@ -122,7 +121,7 @@ contract Institute is ERC721, Ownable {
         return creditBalance;
     }
 
-    // New function for the super admin to withdraw funds
+    // function for super admin to withdraw funds
     function withdrawFunds() external onlySuperAdmin {
         uint256 balance = address(this).balance;
         require(balance > 0, "No funds to withdraw");
@@ -133,12 +132,12 @@ contract Institute is ERC721, Ownable {
         emit FundsWithdrawn(_superAdmin, balance);
     }
 
-    // Function to get the super admin address
+ 
     function getSuperAdmin() external view returns (address) {
         return _superAdmin;
     }
 
-    // Function to transfer super admin role (optional, for added flexibility)
+    // Function to transfer super admin role
     function transferSuperAdmin(address newSuperAdmin) external onlySuperAdmin {
         require(newSuperAdmin != address(0), "New super admin is the zero address");
         _superAdmin = newSuperAdmin;

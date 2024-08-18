@@ -38,7 +38,8 @@
     "src/app/admin/admin-dashboard.jsx",
     "src/components/WalletConnect.jsx",
     "src/components/pricing.jsx",
-    "src/components/pricing.jsx"
+    "src/components/pricing.jsx",
+    "src/app/login/LoginForm.jsx"
   ],
   "exclude": ["node_modules"]
 }
