@@ -1,119 +1,153 @@
-# Figroma DApp Smart Contracts Documentation
+# Figroma DApp - Complete User Guide and Documentation
 
-## Overview
+## Table of Contents
 
-The Figroma DApp consists of four main smart contracts:
+1. Introduction
+2. User Roles
+3. Getting Started
+4. Super Admin Functions
+5. Admin Functions
+6. Higher Authority Registration and Functions
+7. Institute Registration and Functions
+8. Document Verification Process
+9. Soul-Bound Token (SBT) Minting
+10. Credit System
+11. Technical Details
+12. Security Considerations
+13. Troubleshooting
+14. Conclusion
 
-1. IdentityRegistry
-2. Factory
-3. Authority
-4. Institute
+## 1. Introduction
 
-These contracts work together to create a decentralized system for managing higher authorities, institutes, and document verification processes.
+Figroma DApp is a decentralized application designed to facilitate secure and transparent document verification and issuance of non-transferrable credentials in the form of Soul-Bound Tokens (SBTs). The DApp connects Higher Authorities, Institutes, and end-users in a trustless environment, leveraging blockchain technology for immutability and transparency.
 
-## Contract Details
+## 2. User Roles
 
-### 1. IdentityRegistry Contract
+- **Super Admin**: The highest authority in the system, responsible for managing admins and overseeing the entire DApp.
+- **Admins**: Assist in managing the DApp, particularly in approving Higher Authorities.
+- **Higher Authorities**: Oversee and approve Institutes and their document requests.
+- **Institutes**: Submit document requests and mint SBTs for approved documents.
+- **End-users**: Recipients of the Soul-Bound Tokens representing verified credentials.
 
-The IdentityRegistry contract is responsible for all types of registration within the DApp.
+## 3. Getting Started
 
-#### Key Features:
+To use the Figroma DApp:
 
-- Manages a Super Admin and up to 5 additional admins
-- Handles registration and approval of Higher Authorities
-- Manages registration of Institutes
+1. Connect your Ethereum wallet (e.g., MetaMask) to the DApp.
+2. Ensure you have sufficient ETH for gas fees and, for Institutes, to purchase credits.
+3. Navigate to the appropriate section based on your role (Admin, Higher Authority, or Institute).
 
-#### Main Functions:
+## 4. Super Admin Functions
 
-- `addAdmin(address _newAdmin)`: Allows the Super Admin to add new admins (up to 5 total).
-- `removeAdmin(address _admin)`: Allows the Super Admin to remove admins.
-- `registerHigherAuthority(string memory _authorityName)`: Allows Higher Authorities to register.
-- `approveHigherAuthority(address _authority)`: Allows admins to approve Higher Authorities.
-- `registerInstitute(string memory _instituteName, address _higherAuthority)`: Allows Institutes to register under a specific Higher Authority.
-- `approveInstitute(address _institute)`: Allows Higher Authorities to approve Institutes under their supervision.
+The Super Admin is set during the initial deployment of the IdentityRegistry contract. They can:
 
-#### Important Notes:
+- Add new admins (up to a maximum of 5) using the `addAdmin` function.
+- Remove admins using the `removeAdmin` function.
+- Set the Super Higher Authority in the Factory contract.
+- Oversee the entire DApp operations.
 
-- The contract deployer becomes the Super Admin.
-- Higher Authority approval requires at least 3 admin approvals.
-- Institutes choose their specific Higher Authority during registration.
+## 5. Admin Functions
 
-### 2. Factory Contract
+Admins play a crucial role in onboarding Higher Authorities:
 
-The Factory contract creates instances for each onboarded Higher Authority and registered Institute.
+- Review Higher Authority registration requests.
+- Approve Higher Authorities using the `approveHigherAuthority` function.
+- A minimum of 3 admin approvals is required for a Higher Authority to be fully onboarded.
 
-#### Key Features:
+## 6. Higher Authority Registration and Functions
 
-- Creates and manages Authority and Institute contract instances
-- Sets up a Super Higher Authority
+### Registration:
 
-#### Main Functions:
+1. Navigate to the "Register as Higher Authority" section.
+2. Provide required information (e.g., authority name, wallet address).
+3. Submit the registration request using the `registerHigherAuthority` function.
+4. Wait for admin approvals (requires 3 approvals).
 
-- `setSuperHigherAuthority(address _superHigherAuthority)`: Sets the Super Higher Authority.
-- `createAuthorityContract(address _authority)`: Creates an Authority contract instance.
-- `createInstituteContract(address _institute, address _authority)`: Creates an Institute contract instance.
+### Functions:
 
-#### Important Notes:
+Once approved, Higher Authorities can:
 
-- Only the IdentityRegistry can call `createAuthorityContract` and `createInstituteContract`.
-- The Super Higher Authority can approve or reject requests from organizations not linked to other Higher Authorities.
+- Review and approve Institute registrations using `approveInstitute`.
+- Reject Institute registrations using `rejectInstitute`.
+- Approve document requests from Institutes using `approveDocumentRequest`.
+- Reject document requests using `rejectDocumentRequest`.
+- Revoke Institute access if necessary using `revokeInstituteAccess`.
 
-### 3. Authority Contract
+## 7. Institute Registration and Functions
 
-The Authority contract monitors the Institutes under their supervision and approves or rejects document requests.
+### Registration:
 
-#### Key Features:
+1. Go to the "Register as Institute" section.
+2. Provide required information (institute name, wallet address).
+3. Select the appropriate Higher Authority from the list.
+4. Submit the registration request using `registerInstitute`.
+5. Wait for approval from the selected Higher Authority.
 
-- Manages document approval process
-- Can revoke Institute access
+### Functions:
 
-#### Main Functions:
+Once approved, Institutes can:
 
-- `approveDocumentRequest(address _institute, bytes32 _documentHash)`: Approves a document request from an Institute.
-- `rejectDocumentRequest(address _institute, bytes32 _documentHash)`: Rejects a document request from an Institute.
-- `revokeInstituteAccess(address _institute)`: Revokes access for a specific Institute.
+- Purchase credits for document verification.
+- Submit document requests to their Higher Authority using `submitDocumentRequest`.
+- Mint Soul-Bound Tokens for approved documents using `mintSoulBoundToken`.
 
-#### Important Notes:
+## 8. Document Verification Process
 
-- Only the Higher Authority can approve or reject document requests.
-- The Super Higher Authority automatically approves all document requests.
+1. Institute submits a document request (requires credits).
+2. Higher Authority reviews the request.
+3. Higher Authority approves or rejects the document.
+4. If approved, the Institute can mint an SBT for the document.
 
-### 4. Institute Contract
+## 9. Soul-Bound Token (SBT) Minting
 
-The Institute contract handles document request submissions and minting of soul-bound tokens.
+For approved documents:
 
-#### Key Features:
+1. Institute navigates to the "Mint SBT" section.
+2. Enters the recipient's address and the approved document hash.
+3. Calls the `mintSoulBoundToken` function.
+4. The SBT is minted and sent to the recipient's address.
 
-- Submits document requests to Higher Authorities
-- Mints soul-bound tokens (non-transferrable NFTs)
-- Manages credit system for document verification
+Note: SBTs are non-transferrable and represent verified credentials.
 
-#### Main Functions:
+## 10. Credit System
 
-- `submitDocumentRequest(bytes32 _documentHash)`: Submits a document request to the Higher Authority.
-- `mintSoulBoundToken(address _to, bytes32 _documentHash)`: Mints a soul-bound token after document approval.
-- `purchaseCredits(uint256 planType)`: Allows Institutes to purchase credits for document verification.
+Institutes need credits to submit document requests:
 
-#### Important Notes:
+- Navigate to the "Purchase Credits" section.
+- Choose a plan:
+  - Basic: 100 credits for $49
+  - Standard: 500 credits for $199
+  - Premium: 1500 credits for $499
+- Use the `purchaseCredits` function to buy credits.
+- Each document request consumes one credit.
 
-- Institutes need credits to submit document requests.
-- Soul-bound tokens are non-transferrable NFTs.
-- Three credit plans are available: Basic, Standard, and Premium.
+## 11. Technical Details
 
-## Usage Flow
+The DApp consists of four main smart contracts:
 
-1. Deploy the IdentityRegistry contract (Super Admin is set).
-2. Deploy the Factory contract, linking it to the IdentityRegistry.
-3. Set the Super Higher Authority in the Factory contract.
-4. Higher Authorities register through the IdentityRegistry.
-5. Admins approve Higher Authorities (requires 3 approvals).
-6. Institutes register under specific Higher Authorities.
-7. Higher Authorities approve Institute registrations.
-8. Institutes purchase credits and submit document requests.
-9. Higher Authorities approve or reject document requests.
-10. Institutes mint soul-bound tokens for approved documents.
+- IdentityRegistry: Manages registrations and approvals.
+- Factory: Creates instances for Higher Authorities and Institutes.
+- Authority: Handles document approvals and Institute management.
+- Institute: Manages document requests and SBT minting.
 
+For detailed function descriptions, refer to the individual contract documentation.
 
-## Conclusion
+## 12. Security Considerations
 
-This documentation provides an overview of the smart contracts used in the Figroma DApp. For detailed implementation and function specifics, please refer to the individual contract files.
+- Keep your private keys secure and never share them.
+- Verify all transaction details before signing.
+- For Institutes: Ensure document hashes are accurate before submission.
+- Report any suspicious activities to the Super Admin.
+
+## 13. Troubleshooting
+
+- Transaction Failure: Ensure you have sufficient ETH for gas fees.
+- Registration Issues: Verify all information is correct and try again.
+- Approval Delays: Higher Authority approvals require multiple admin confirmations, which may take time.
+- Credit Purchase Problems: Double-check the ETH amount matches the selected plan.
+
+## 14. Conclusion
+
+The Figroma DApp provides a secure and transparent platform for document verification and credential issuance. By following this guide, users in various roles can effectively navigate and utilize the DApp's features. For any additional questions or support, please contact the DApp administrators.
+
+Remember to always interact with the DApp through its official interface and be cautious of potential phishing attempts or unauthorized copies of the DApp.
